@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header">
+    <title>查看图片</title>
+</head>
+<style>
+    .cls {
+        border: 1px solid black;
+    }
+</style>
+<body>
+<input type="hidden" id="towerNum" th:attr="value=${towerNum}">
+<input type="hidden" id="date" th:attr="value=${date}">
+<div class="container cls" style="width: 1130px">
+    <div class="row cls">
+        <div class="cls" id="kjgjt" style="float:left;">
+
+        </div>
+        <div class="cls" id="hwrt" style="float:left;padding: 0">
+        </div>
+    </div>
+    <div class="row">
+        <div class="cls" style="float:left;width:643px" id="hwjt">
+        </div>
+        <div style="float:left;width:485px;padding-top: 5px">
+            <div class="row">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="inp1" class="col-sm-3 control-label">路线名:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="inp1" th:attr="value=${routeName}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inp2" class="col-sm-3 control-label">日期:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="inp2" th:attr="value=${date}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inp3" class="col-sm-3 control-label">设备名:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="inp3" th:attr="value=${towerName}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inp4" class="col-sm-3 control-label">设备位置:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="inp4" th:attr="value=${localtion}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inp5" class="col-sm-3 control-label">温度:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control " id="inp5" th:attr="value=${temperature}" disabled>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <button id="exportImg" class=" btn btn-primary btn-sm col-lg-4 col-md-offset-1 col-sm-offset-2">导出文件</button>
+                <button id="createReport" class=" btn btn-success btn-sm col-lg-4 col-md-offset-1 col-sm-offset-2">生成报告</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $().ready(function () {
+        $.ajax({
+            type: 'get',
+            url: "../image/getImages",
+            success: function (data) {
+                $("#kjgjt").append("<img class='img-responsive' src='../"+data[0]+"' style='width: 640px;height: 360px'/>");
+                $("#hwrt").append("<img class='img-responsive' class='img-responsive' src='../"+data[1]+"' style='width: 480px;height: 360px'/>");
+                $("#hwjt").append("<img class='img-responsive' src='../"+data[2]+"' style='width: 640px;height: 500px'/>");
+            }
+        })
+        // $("#kjgjt").append("<img class='img-responsive' src='../image/getKJGJT?towerNum=" + $('#towerNum').val() + "&date=" + $('#date').val() + "' style='width: 640px;height: 360px" + "'/>");
+        // $("#hwrt").append("<img class='img-responsive'src='../image/getHWRT?towerNum=" + $('#towerNum').val() + "&date=" + $('#date').val() + "' style='width: 480px;height: 360px" + "'/>");
+        // $("#hwjt").append("<img class='img-responsive' src='../image/getHWJT?towerNum=" + $('#towerNum').val() + "&date=" + $('#date').val() + "' style='width: 640px;height: 500px" + "'/>");
+    });
+    $('#exportImg').click(function () {
+        window.open("../image/exportImg");
+    });
+
+    $('#createReport').click(function () {
+        window.open("../image/report");
+    })
+</script>

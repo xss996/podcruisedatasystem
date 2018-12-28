@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header">
+    <meta charset="UTF-8">
+    <title>生成报告</title>
+</head>
+<style>
+    .cls {
+        border: 1px solid black;
+    }
+
+    caption {
+        font-size: 24px;
+        color: #0C0C0C;
+        font-weight: bolder;
+        letter-spacing: 5px;
+    }
+
+    .lab {
+        width: 90px;
+    }
+</style>
+<body>
+<div class="container cls">
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img-responsive" src="../img/国家电网lr.jpg" id="logo">
+        </div>
+        <div class="col-md-9">
+            <table class="table table-bordered" style="text-align: center">
+                <caption>巡航检测报告</caption>
+                <tr>
+                    <td class="col-md-2">单位名称</td>
+                    <td colspan="5" style="padding: 0">
+                        <input type="text" class="form-control " placeholder="请输入单位名称" id="companyName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>管理局</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control " th:attr="value=${kjgImage.office}" id="office">
+                    </td>
+                    <td class="lab">电压等级</td>
+                    <td style="padding: 0" colspan="3">
+                        <input type="text" class="form-control " th:attr="value=${kjgImage.voltage}" id="voltage">
+                    </td>
+                </tr>
+                <tr>
+                    <td>线路名</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control " th:attr="value=${kjgImage.routeName}" id="routeName">
+                    </td>
+                    <td>塔号</td>
+                    <td style="padding: 0" colspan="3   ">
+                        <input type="text" class="form-control " th:attr="value=${kjgImage.towerNum}" id="towerNum">
+                    </td>
+                </tr>
+                <tr>
+                    <td>设备名称</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control " th:attr="value=${kjgImage.deviceName}" id="deviceName">
+                    </td>
+                    <td>缺陷位置</td>
+                    <td style="padding: 0" colspan="3">
+                        <input type="text" class="form-control " id="imprefectLocaltion">
+                    </td>
+                </tr>
+                <tr>
+                    <td>可见光图片</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control " th:attr="value=${kjgImage.imageName}"
+                               id="kjgImageName">
+                    </td>
+                    <td>拍摄时间</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control " id="kjgImageTime"
+                               th:attr="value=${#dates.format(kjgImage.time,'yyyy-MM-dd HH:mm:ss')}">
+                    </td>
+                    <td>操作人</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control" id="kjgOperator">
+                    </td>
+                </tr>
+                <tr>
+                    <td>红外图片</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control " th:attr="value=${hwjtImage.imageName}"
+                               id="hwImageName">
+                    </td>
+                    <td>拍摄时间</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control" id="hwImageTime"
+                               th:attr="value=${#dates.format(hwjtImage.time,'yyyy-MM-dd HH:mm:ss')}">
+                    </td>
+                    <td>操作人</td>
+                    <td style="padding: 0">
+                        <input type="text" class="form-control" id="hwOperator">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row" style="height: 100px">
+        <div class="col-md-6 cls" align="center">
+            <img th:src="${kjgImage.path}" class="img-responsive" style="height: 200px;width: 356px" id="kjgImagePath">
+        </div>
+        <div class="col-md-6 cls" align="center">
+            <img th:src="${hwjtImage.path}" class="img-responsive" style="height: 200px;width:266px" id="hwImagePath">
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="4">故障描述</td>
+            </tr>
+            <tr>
+                <td colspan="4" style="padding: 0">
+                    <textarea class="col-md-12" id="errorDescription"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">处理意见</td>
+            </tr>
+            <tr>
+                <td colspan="4" style="padding: 0">
+                    <textarea class="col-md-12" id="handlerAdvice"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>分析人</td>
+                <td style="padding: 0">
+                    <input type="text" class="form-control " id="assayer">
+                </td>
+                <td>报告时间</td>
+                <td style="padding: 0">
+                    <input type="date" class="form-control " id="reportTime">
+                </td>
+            </tr>
+            <tr>
+                <td>审核意见</td>
+                <td colspan="3" style="padding: 0">
+                    <textarea class="col-md-12" id="auditAdvice"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>批准意见</td>
+                <td colspan="3" style="padding: 0">
+                    <textarea class="col-md-12" id="approveAdvice"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row layui-btn-container">
+        <button id="report" class="layui-btn col-md-offset-5">生成报告</button>
+        <button id="download" class="layui-btn layui-btn-normal" style="margin-left: 40px">导出报告</button>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $('#report').click(function () {
+        //日期+时间的正则表达式
+        var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/;
+        var regExp = new RegExp(reg);
+        if(!regExp.test($('#kjgImageTime').val())){
+            alert("拍摄时间格式不正确,正确格式为: 2014-01-01 12:00:00 ");
+            return;
+        }
+        if(!regExp.test($('#hwImageTime').val())){
+            alert("拍摄时间格式不正确,正确格式为: 2014-01-01 12:00:00 ");
+            return;
+        }
+        if ($("#reportTime").val() =="") {
+            alert("请填写报告时间.....");
+            return;
+        }else{
+            if (new Date($("#reportTime").val())>new Date()){
+                alert('警告：报告时间不能大于今天日期！')
+                return;
+            }
+        }
+        $.ajax({
+            type: 'post',
+            url: "../image/report/create",
+            dataType: "JSON",
+            data: {
+                logoImagePath: $('#logo').get(0).src,
+                companyName: $('#companyName').val(),
+                office: $('#office').val(),
+                voltage: $('#voltage').val(),
+                routeName: $('#routeName').val(),
+                towerNum: $('#towerNum').val(),
+                deviceName: $('#deviceName').val(),
+                imprefectLocaltion: $('#imprefectLocaltion').val(),
+                kjgImageName: $('#kjgImageName').val(),
+                kjgImageTime: new Date($('#kjgImageTime').val()),
+                kjgOperator: $('#kjgOperator').val(),
+                kjgImagePath: $("#kjgImagePath").get(0).src,
+                hwImageName: $('#hwImageName').val(),
+                hwImageTime: new Date($('#hwImageTime').val()),
+                hwOperator: $('#hwOperator').val(),
+                hwImagePath: $('#hwImagePath').get(0).src,
+                errorDescription: $('#errorDescription').val(),
+                handlerAdvice: $('#handlerAdvice').val(),
+                assayer: $('#assayer').val(),
+                reportTime: new Date($("#reportTime").val()),
+                auditAdvice: $('#auditAdvice').val(),
+                approveAdvice: $('#approveAdvice').val()
+            },
+            success: function (data) {
+                if (data ==1){
+                    alert('巡检报告生成成功!')
+                }else{
+                    alert('操作出现错误，请重试！')
+                }
+            }
+        })
+    });
+
+    $('#download').click(function () {
+        window.open("../image/report/download");
+    })
+
+
+</script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<style>
+    div a{
+        color: black;
+        font-size: 14px;
+    }
+    h4{
+        text-align: center;
+    }
+    #towerMenu a {
+       margin-left: 25%;
+    }
+    .cls {
+        border: 1px solid #efdbdb;
+    }
+</style>
+<body>
+<div id="image_left" class="col-md-2 col-sm-3 cls" style="padding-left: 1%;margin-left: 0;padding-top: 7px;">
+    <h4 style="color: #f39800;font-weight: bolder">塔号</h4>
+    <ul id="towerMenu" class="list-group" style="padding-top: 5px" >
+        <li th:each="tower:${towerMenu}" class="list-group-item">
+            <a th:href="@{#}" th:text="${tower.towerNum}"></a>
+        </li>
+    </ul>
+</div>
+<div id="image_right" class="col-md-10 col-sm-9 cls">
+    <div class="row">
+        <h5 style="margin-top: 5px;color: black;font-weight: bolder"></h5>
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+    </div>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="checkImg">查看图片</a>
+</script>
+</body>
+</html>
+<script>
+    $().ready(function () {
+        var height = window.innerHeight + "px";
+        $('#image_left').css("height", height);
+        $('#image_right').css("height", height);
+    });
+    $("#towerMenu a").click(function () {
+        var towerNum = $(this).html();
+        $("h5").html(towerNum+"塔号图片列表");
+        layui.use('table', function(){
+            var table = layui.table;
+            table.render({
+                elem: '#test',
+                url:'/image/list?towerNum='+towerNum,
+                page:true,
+                limit:15,
+                limits:[15],
+                cols: [
+                    [
+                        {field:'id',  title: '编号', sort: true},
+                        {field:'towerName',  title: '被测设备名'},
+                        {field:'localtion',title: '被测设备位置'},
+                        {field:'temperature',  title: '测温值', sort: true},
+                        {field:'alarmType', title: '报警类型'},
+                        {field:'photoTime',title:'时间', sort: true},
+                        {fixed: 'right', title:'操作', toolbar: '#barDemo'}
+                    ]
+                ]
+            });
+            //监听行工具事件
+            table.on('tool(test)', function(obj){
+                var data = obj.data;
+                //console.log(obj)
+                if(obj.event === 'checkImg'){
+                   // alert(data.towerName);
+                    window.open("../image/check?towerNum="+data.towerNum+"&date="+data.photoTime+"&towerName="+data.towerName+"&localtion="+
+                       data.localtion+"&temperature="+data.temperature +"&rand="+Math.random());
+                }
+            });
+        });
+    });
+</script>
+
+
+

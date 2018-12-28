@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<!--<head th:include="include :: header"></head>-->
+<body>
+  <div class="container">
+      <div class="row" style="margin-top: 7px;margin-bottom: 7px">
+          <button type="button" id="checkImg" class="btn btn-info " style="margin-right: 10px;margin-left: 10px">查看图片</button>
+          <button type="button" id="checkVideo" class="btn btn-info" style="margin-right: 10px;">查看视频</button>
+      </div>
+      <div class="row">
+          <h5 style="margin-top: 5px;color: black;font-weight: bolder;margin-left: 7px">操作记录纪要表</h5>
+          <table class="layui-hide" id="test" lay-filter="test"></table>
+      </div>
+  </div>
+<input id="inp1" type="hidden" th:attr="value=${routeName}">
+<input id="inp2" type="hidden" th:attr="value=${date}">
+</body>
+</html>
+<script>
+    $().ready(function () {
+        layui.use('table', function(){
+            var table = layui.table;
+            table.render({
+                elem: '#test',
+                url:'../summary/find?routeName='+$('#inp1').val()+'&date='+$('#inp2').val(),
+                page:true,
+                limit:15,
+                limits:[15],
+                skin: 'line', //表格风格
+                cols: [
+                    [
+                        {field:'id',  title: '序号', sort: true},
+                        {field:'date',  title: '时间',sort: true},
+                        {field:'towerNum',title: '塔号', sort: true},
+                        {field:'pollingNum',  title: '巡检序',sort: true},
+                        {field:'eventClass', title: '事件分类'},
+                        {field:'eventContent',title:'事件内容'}
+                    ]
+                ]
+            });
+
+        });
+    })
+</script>
+<script>
+    $("#checkImg").click(function () {
+        // alert("查看图片事件");
+        $("#right").load("../image/listMenu")
+    });
+
+    $("#checkVideo").click(function () {
+        // alert("查看视频事件");
+        $("#right").load("../video/listMenu")
+    });
+</script>

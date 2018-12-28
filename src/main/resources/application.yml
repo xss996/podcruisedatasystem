@@ -1,0 +1,64 @@
+# 开发环境配置
+server:
+  # 服务端口
+  port: 8089
+  servlet:
+    # 项目contextPath
+    context-path: /
+    session:
+      timeout: 600m
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+
+#自定义
+web:
+  image-path: D:/dataSave/image/   #图片保存路径
+  video-path: D:/dataSave/video/   #视频保存路径
+  ffmpeg-path: D:/java/ffmpeg/bin/ffmpeg.exe  #截图工具ffmpeg程序所在安装路径
+  zip-path: D:/dataSave/zip/  #zip文件保存路径
+  temp: D:/dataSave/temp/           #临时文件保存目录
+  pdfPath: D:/dataSave/pdf/
+# Spring配置
+spring:
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.image-path},file:${web.video-path},file:${web.zip-path},file:${web.temp},file{web.pdfPath}
+
+
+  # 模板引擎
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # 禁用缓存
+    cache: false
+  # 资源信息
+#  messages:
+#    # 国际化资源文件路径
+#    basename: i18n/messages
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+#  profiles:
+#    active: druid
+#  # 文件上传
+#  servlet:
+#     multipart:
+#       max-file-size:  30MB
+#       max-request-size:  30MB
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+#配置ftp信息
+#ftp:
+#  ip: 192.168.123.113     #192.168.123.55
+#  port: 21
+#  username: test
+#  password: test

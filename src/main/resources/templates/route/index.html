@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+<style>
+    body {
+        background-color: white;
+    }
+
+    .cls {
+        border: 1px solid black;
+    }
+</style>
+<body>
+<div style="width: 98%;margin-left: 1%">
+    <div id="body_left" class="col-md-2 col-sm-2 " style="border: #9F9F9F 1px solid;margin-top: 7px">
+        <div class="row" style="margin-top: 5px;margin-bottom: 5px">
+            <div class="btn-group btn-group-justified">
+                <a id="checkLocalFile" href="#" class="btn btn-sm btn-success">本地文件</a>
+                <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#myModal">ftp文件</a>
+            </div>
+        </div>
+        <div class="row" style="">
+            <span class="list-title ">路线概览</span>
+            <ul id="accordion" class="accordion">
+                <li th:each="parent:${parentList}">
+                    <div class="link"><i class="fa fa-signal"></i><span th:text="${parent.title}"></span> <i
+                            class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                        <li th:each="child:${parent.childList}">
+                            <a th:href="@{#}" th:text="${child.name}">
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="body_right" class="col-md-10 col-sm-10 cls" style="margin-top: 7px;">
+        <div id="right" class="row">
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="../route/index?type=2" method="post" onsubmit="close()" class="form-horizontal" role="form">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">FTP登录</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ip" class="col-sm-2 control-label">IP：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="ip" name="ip" placeholder="请输入ip地址" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="port" class="col-sm-2 control-label">端口号：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="port" value="21" name="port" placeholder="请输入端口号" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">用户名：</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="username" name="username"  placeholder="请输入用户名" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">密码：</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password"  placeholder="请输入密码" required>
+                        </div>
+                    </div>
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-2" style="text-align: center;padding-top: 1%">-->
+                            <!--<span>IP：</span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-9">-->
+                            <!--<input type="text" class="form-control" name="ip" placeholder="请输入IP地址" required>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-2" style="text-align: center;padding-top: 1%">-->
+                            <!--<span>端口号：</span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-9">-->
+                            <!--<input type="text" class="form-control" name="port" placeholder="请输入用户名" value="21" required>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-2" style="text-align: center;padding-top: 1%">-->
+                            <!--<span>用户名：</span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-9">-->
+                            <!--<input type="text" class="form-control" name="username" placeholder="请输入用户名" required>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-2" style="padding-bottom: 0;text-align: center;padding-top: 3%">-->
+                            <!--<span>密码：</span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-9" style="margin-top: 10px">-->
+                            <!--<input type="password" class="form-control" name="password" placeholder="请输入密码" required>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div>
+</div><!-- /.modal -->
+</body>
+</html>
+<script>
+    <!--页面加载事件-->
+    $().ready(function () {
+        var height = window.innerHeight + "px";
+        $('#body_left').css("height", height);
+        $('#body_right').css("height", height);
+
+    });
+    $("#accordion a").click(function () {
+        var routeName = $(this).parent().parent().prev().find("span").text();
+        var date = $(this).html();
+        $("#right").load("../summary/list?routeName=" + routeName + "&date=" + date);
+    });
+
+    $('#checkLocalFile').click(function () {
+        //window.location.href="../route/index";
+        alert("抱歉，功能尚未开放！")
+    });
+</script>
