@@ -2,16 +2,14 @@ package com.peiport.podcruisedatasystem.controller;
 
 import com.peiport.podcruisedatasystem.common.Constant;
 import com.peiport.podcruisedatasystem.entity.Tower;
-import com.peiport.podcruisedatasystem.util.ftp.FTPUtil;
+import com.peiport.podcruisedatasystem.common.util.ftp.FTPUtil;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 

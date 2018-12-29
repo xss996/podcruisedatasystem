@@ -1,4 +1,4 @@
-package com.peiport.podcruisedatasystem.util;
+package com.peiport.podcruisedatasystem.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

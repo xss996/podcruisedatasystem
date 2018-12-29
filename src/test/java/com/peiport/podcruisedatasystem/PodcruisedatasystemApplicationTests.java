@@ -3,8 +3,7 @@ package com.peiport.podcruisedatasystem;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.peiport.podcruisedatasystem.util.TimeConvertUtil;
-import com.peiport.podcruisedatasystem.util.ftp.FTPUtil;
+import com.peiport.podcruisedatasystem.common.util.TimeConvertUtil;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +13,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.util.Properties;
 
 @RunWith(SpringRunner.class)

@@ -1,26 +1,18 @@
-package com.peiport.podcruisedatasystem.util.ftp;
+package com.peiport.podcruisedatasystem.common.util.ftp;
 
 import com.peiport.podcruisedatasystem.entity.ftp.FTPObject;
-import com.peiport.podcruisedatasystem.exception.MyException;
+import com.peiport.podcruisedatasystem.common.exception.MyException;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.ftp.FTPReply;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import sun.net.ftp.FtpClient;
-import sun.net.ftp.FtpDirEntry;
 import sun.net.ftp.FtpProtocolException;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;

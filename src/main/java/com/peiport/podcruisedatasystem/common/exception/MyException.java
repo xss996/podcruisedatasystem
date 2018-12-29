@@ -1,4 +1,4 @@
-package com.peiport.podcruisedatasystem.exception;
+package com.peiport.podcruisedatasystem.common.exception;
 
 public class MyException extends RuntimeException {
     private String code;  //异常状态码

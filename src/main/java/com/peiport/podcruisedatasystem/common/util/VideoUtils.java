@@ -1,4 +1,4 @@
-package com.peiport.podcruisedatasystem.util;
+package com.peiport.podcruisedatasystem.common.util;
 
 
 //封装工具类，截取中间时间的视频截图

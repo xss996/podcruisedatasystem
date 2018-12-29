@@ -9,7 +9,8 @@
     <packaging>jar</packaging>
 
     <name>podcruisedatasystem</name>
-    <description>吊舱巡线数据回放系统</description>
+    <description>吊舱巡线数
+          据回放系统</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

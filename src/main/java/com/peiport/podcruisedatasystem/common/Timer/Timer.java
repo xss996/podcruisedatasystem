@@ -1,6 +1,6 @@
-package com.peiport.podcruisedatasystem.Timer;
+package com.peiport.podcruisedatasystem.common.Timer;
 
-import com.peiport.podcruisedatasystem.util.TimeConvertUtil;
+import com.peiport.podcruisedatasystem.common.util.TimeConvertUtil;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

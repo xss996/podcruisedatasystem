@@ -1,15 +1,13 @@
 package com.peiport.podcruisedatasystem.controller;
 
 import com.peiport.podcruisedatasystem.common.Constant;
-import com.peiport.podcruisedatasystem.entity.OperateSummary;
 import com.peiport.podcruisedatasystem.entity.Tower;
 import com.peiport.podcruisedatasystem.entity.VideoSynchronizedCsv;
 import com.peiport.podcruisedatasystem.entity.ftp.FTPObject;
 import com.peiport.podcruisedatasystem.entity.util.LayuiReplay;
 import com.peiport.podcruisedatasystem.entity.util.VideoThumbTaker;
-import com.peiport.podcruisedatasystem.exception.MyException;
-import com.peiport.podcruisedatasystem.util.TimeConvertUtil;
-import com.peiport.podcruisedatasystem.util.ftp.FTPUtil;
+import com.peiport.podcruisedatasystem.common.util.TimeConvertUtil;
+import com.peiport.podcruisedatasystem.common.util.ftp.FTPUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -18,10 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.net.ftp.FtpClient;
 import sun.net.ftp.FtpProtocolException;
 
 import javax.servlet.http.HttpServletRequest;

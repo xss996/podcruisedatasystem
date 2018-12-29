@@ -4,7 +4,7 @@ import com.peiport.podcruisedatasystem.common.Constant;
 import com.peiport.podcruisedatasystem.entity.ftp.FTPObject;
 import com.peiport.podcruisedatasystem.entity.menu.Child;
 import com.peiport.podcruisedatasystem.entity.menu.Parent;
-import com.peiport.podcruisedatasystem.util.ftp.FTPUtil;
+import com.peiport.podcruisedatasystem.common.util.ftp.FTPUtil;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.slf4j.Logger;

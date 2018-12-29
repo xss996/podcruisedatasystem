@@ -1,16 +1,9 @@
 package com.peiport.podcruisedatasystem.controller;
 
-import com.peiport.podcruisedatasystem.exception.MyException;
-import com.peiport.podcruisedatasystem.util.ftp.FTPUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 
 @Controller
 public class IndexController {
@@ -29,7 +22,7 @@ public class IndexController {
     }
     @RequestMapping("/test2")
     public String test2(Model model){
-       model.addAttribute("title","仪表测试");
+      // model.addAttribute("title","地图实时位置更新");
         return "test/test2";
     }
 
