@@ -248,7 +248,7 @@ public class ImageController {
     public int createReport(@ModelAttribute Report report, HttpSession session) throws Exception {
         LOGGER.info("report=" + report);
         //将项目中的logo图片下载到本地
-        ClassPathResource classPathResource = new ClassPathResource("static/img/国家电网lr.jpg");
+        ClassPathResource classPathResource = new ClassPathResource("static/img/logo/国家电网lr.jpg");
         InputStream in = null;
         OutputStream out = null;
         OutputStream os = null;

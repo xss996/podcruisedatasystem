@@ -26,4 +26,10 @@ public class IndexController {
         return "test/test2";
     }
 
+
+    @RequestMapping("/map")
+    public String mapTest(){
+        return "test/map";
+    }
+
 }

@@ -10,12 +10,14 @@
     <script th:src="@{http://ditu.google.cn/maps/api/js?key=AIzaSyDJW4jsPlNKgv6jFm3B5Edp5ywgdqLWdmc}"></script>
 </head>
 <body>
-<div id="map" style="width: 600px;height: 600px;" align="center"></div>
+<div id="map" style="width: 600px;height: 600px;margin-left: 15%" align="center"></div>
 </body>
 </html>
 <script>
     var lng = 113.3374;
     var lat = 23.15729;
+    var targetlng = 113.3376;
+    var targetlat = 23.15729;
     var mapProp = {
         center: new google.maps.LatLng(lat, lng),
         zoom: 20,
@@ -23,18 +25,76 @@
         //scrollwheel: true
     };
     var map = new google.maps.Map(document.getElementById("map"), mapProp);
-    var marker = new google.maps.Marker({
-        map: map,
-        position: new google.maps.LatLng(lat, lng)
+    // var times = 0;
+    var icons = {
+        plane: {
+            icon: {
+                url: "../img/map/Plane04.png",
+                scaledSize: new google.maps.Size(50, 50)
+            }
+        },
+        uav: {
+            icon: {
+                url: "../img/map/Targetdfdf.png",
+                scaledSize: new google.maps.Size(15, 15)
+            }
+        }
+    };
+    var features = [
+        {
+            position: new google.maps.LatLng(lat, lng),
+            type: 'plane'
+        },
+        {
+            position: new google.maps.LatLng(targetlat, targetlng),
+            type: 'uav'
+        }
+    ];
+    // Create markers.
+    features.forEach(function (feature) {
+        var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+        });
     });
-        setInterval(function () {
-            lat = lat + 0.00001;
-            lng = lng + 0.00001;
-            var latlng = new google.maps.LatLng(lat, lng);
-            map.setCenter( new google.maps.LatLng(lat, lng));
-            marker.setPosition(latlng);
-        }, 1000)
+    var flightPlanCoordinates = [
+        {lat: lat, lng: lng},
+        {lat: targetlat, lng: targetlng}
+    ];
+    var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+    flightPath.setMap(map);
 
+    var trackPoints = new Array();
+
+    var times = 0;
+    var id = setInterval(function () {
+        lat = lat + 0.00001;
+        lng = lng + 0.00001;
+        targetlng = targetlng+0.00001;
+        targetlat = targetlat+0.00001;
+        var latlng = new google.maps.LatLng(lat, lng);
+        map.setCenter(new google.maps.LatLng(lat, lng));
+        marker.setPosition(latlng);
+        times++;
+        trackPoints.push(new google.maps.LatLng(lat, lng));
+        var trackPath = new google.maps.Polyline({
+            path: trackPoints,
+            strokeColor: "#FF0000", // 线条颜色
+            strokeOpacity: 1.0, // 线条透明度
+            strokeWeight: 2 // 线条粗细
+        });
+        trackPath.setMap(map);
+        if (times === 10) {
+            clearInterval(id)
+        }
+    }, 1000);
 
 
 </script>

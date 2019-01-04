@@ -79,7 +79,7 @@ public class PodcruisedatasystemApplicationTests {
 
     @Test
     public void testLookImg() throws IOException {
-        ClassPathResource classPathResource = new ClassPathResource("static/img/国家电网lr.jpg");
+        ClassPathResource classPathResource = new ClassPathResource("static/img/logo/国家电网lr.jpg");
         InputStream in = classPathResource.getInputStream();
         FileOutputStream out = new FileOutputStream("D:/img.jpg");
         byte[] buf = new byte[1024];

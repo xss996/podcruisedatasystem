@@ -143,35 +143,80 @@ public class VideoController {
                 String line = null;
                 while ((line = bufferedReader.readLine()) != null) {
                     String[] contents = line.split/**/(",");
+                    //LOGGER.info("contents"+contents.length);
                     VideoSynchronizedCsv csv = new VideoSynchronizedCsv();
-                    csv.setId(Integer.parseInt(contents[0]));
-                    csv.setDate(TimeConvertUtil.StringToDate(contents[1]));
-                    csv.setPollingNum(Integer.parseInt(contents[2]));
+                    if (null != contents[0] &&!("").equals(contents[0].trim())){
+                        csv.setId(Integer.parseInt(contents[0].trim()));
+                    }
+                    if (null != contents[1] &&!("").equals(contents[1].trim())){
+                        csv.setDate(TimeConvertUtil.StringToDate(contents[1].trim()));
+                    }
+                    if (null != contents[2] &&!("").equals(contents[2].trim())){
+                        csv.setPollingNum(Integer.parseInt(contents[2].trim()));
+                    }
                     csv.setTowerNum(contents[3]);
-                    csv.setPodBearing(Double.parseDouble(contents[4]));
-                    csv.setPodPitching(Double.parseDouble(contents[5]));
-                    csv.setPodRolling(Double.parseDouble(contents[6]));
-                    csv.setVisibleLightAngle(Double.parseDouble(contents[7]));
-                    csv.setIRAngle(Double.parseDouble(contents[8]));
+                    if (null != contents[4] &&!("").equals(contents[4].trim())){
+                        csv.setPodBearing(Double.parseDouble(contents[4].trim()));
+                    }
+                    if (null != contents[5] &&!("").equals(contents[5].trim())){
+                        csv.setPodPitching(Double.parseDouble(contents[5].trim()));
+                    }
+                    if (null != contents[6] &&!("").equals(contents[6].trim())){
+                        csv.setPodRolling(Double.parseDouble(contents[6].trim()));
+                    }
+                    if (null != contents[7] &&!("").equals(contents[7].trim())){
+                        csv.setVisibleLightAngle(Double.parseDouble(contents[7].trim()));
+                    }
+                    if (null != contents[8] &&!("").equals(contents[8].trim())){
+                        csv.setIRAngle(Double.parseDouble(contents[8].trim()));
+                    }
                     if (contents[9].equals("TV")) {
                         csv.setCurrentChannel(Constant.CHANNEL_TV);
                     } else if (contents[9].equals("IR")) {
                         csv.setCurrentChannel(Constant.CHANNEL_IR);
                     }
-                    csv.setGPSLng(Double.parseDouble(contents[10]));
-                    csv.setGPSLat(Double.parseDouble(contents[11]));
-                    csv.setGPSHeight(Double.parseDouble(contents[12]));
-                    csv.setPlaneDirection(Double.parseDouble(contents[13]));
-                    csv.setPlanePitching(Double.parseDouble(contents[14]));
-                    csv.setPlaneRolling(Double.parseDouble(contents[15]));
-                    csv.setBoresightDirection(Double.parseDouble(contents[16]));
-                    csv.setBoresightPitching(Double.parseDouble(contents[17]));
-                    csv.setBoresightRolling(Double.parseDouble(contents[18]));
-                    csv.setTargetLng(Double.parseDouble(contents[19]));
-                    csv.setTargetLat(Double.parseDouble(contents[20]));
-                    csv.setGroundDistance(Double.parseDouble(contents[21]));
-                    csv.setLaserDistance(Double.parseDouble(contents[22]));
-                    csv.setSurfaceHeight(Double.parseDouble(contents[23]));
+                    if (null != contents[10] &&!("").equals(contents[10].trim())){
+                        csv.setGPSLng(Double.parseDouble(contents[10].trim()));
+                    }
+                    if (null != contents[11] &&!("").equals(contents[11].trim())){
+                        csv.setGPSLat(Double.parseDouble(contents[11].trim()));
+                    }
+                    if (null != contents[12] &&!("").equals(contents[12].trim())){
+                        csv.setGPSHeight(Double.parseDouble(contents[12].trim()));
+                    }
+                    if (null != contents[13] &&!("").equals(contents[13].trim())){
+                        csv.setPlaneDirection(Double.parseDouble(contents[13].trim()));
+                    }
+                    if (null != contents[14] &&!("").equals(contents[14].trim())){
+                        csv.setPlanePitching(Double.parseDouble(contents[14].trim()));
+                    }
+                    if (null != contents[15] &&!("").equals(contents[15].trim())){
+                        csv.setPlaneRolling(Double.parseDouble(contents[15].trim()));
+                    };
+                    if (null != contents[16] &&!("").equals(contents[16].trim())){
+                        csv.setBoresightDirection(Double.parseDouble(contents[16].trim()));
+                    };
+                    if (null != contents[17] &&!("").equals(contents[17].trim())){
+                        csv.setBoresightPitching(Double.parseDouble(contents[17].trim()));
+                    };
+                    if (null != contents[18] &&!("").equals(contents[18].trim())){
+                        csv.setBoresightRolling(Double.parseDouble(contents[18].trim()));
+                    };
+                    if (null != contents[19] &&!("").equals(contents[19].trim())){
+                        csv.setTargetLng(Double.parseDouble(contents[19].trim()));
+                    };
+                    if (null != contents[20] &&!("").equals(contents[20].trim())){
+                        csv.setTargetLat(Double.parseDouble(contents[20].trim()));
+                    };
+                    if (null != contents[21] &&!("").equals(contents[21].trim())){
+                        csv.setGroundDistance(Double.parseDouble(contents[21].trim()));
+                    };
+                    if (null != contents[22] &&!("").equals(contents[22].trim())){
+                        csv.setLaserDistance(Double.parseDouble(contents[22].trim()));
+                    };
+                    if (null != contents[23] &&!("").equals(contents[23].trim())){
+                        csv.setSurfaceHeight(Double.parseDouble(contents[23].trim()));
+                    };
                     csvList.add(csv);
                 }
 

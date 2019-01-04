@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>地图演示界面</title>
+    <link th:href="@{../css/bootstrap.min.css}" rel="stylesheet"/>
+    <script th:src="@{../js/jquery.min.js}"></script>
+    <script th:src="@{../js/bootstrap.min.js}"></script>
+    <script th:src="@{http://ditu.google.cn/maps/api/js?key=AIzaSyDJW4jsPlNKgv6jFm3B5Edp5ywgdqLWdmc}"></script>
+</head>
+<body>
+<div id="map" style="width: 800px;height: 600px;margin-left: 15%" align="center"></div>
+</body>
+</html>
+<script>
+    var lng = 113.3374;
+    var lat = 23.15729;
+    var targetlng = 113.3370;   //经度,左右
+    var targetlat = 23.15727;  //纬度,上下
+    var mapProp = {
+        center: new google.maps.LatLng(lat, lng),
+        zoom: 17,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    };
+    var map = new google.maps.Map(document.getElementById("map"), mapProp);
+    var icons = {
+        plane: {
+            icon: {
+                url: judgeDirection(lng, lat, targetlng, targetlat),
+                scaledSize: new google.maps.Size(50, 50)
+            }
+        },
+        uav: {
+            icon: {
+                url: "../img/map/Targetdfdf.png",
+                scaledSize: new google.maps.Size(20, 15)
+            }
+        }
+    };
+    var features = [
+        {
+            position: new google.maps.LatLng(lat, lng),
+            type: 'plane'
+        },
+        {
+            position: new google.maps.LatLng(targetlat, targetlng),
+            type: 'uav'
+        }
+    ];
+    var marker1 = new google.maps.Marker({
+        position: features[0].position,
+        icon: icons[features[0].type].icon,
+        map: map
+    });
+    var marker2 = new google.maps.Marker({
+        position: features[1].position,
+        icon: icons[features[1].type].icon,
+        map: map
+    });
+
+    var times = 0;
+    var planeTrackPoints = new Array();
+    var targetTrackPoints = new Array();
+    var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        strokeOpacity: 1,
+        strokeColor: "#00BFFF", // 线条颜色
+        scale: 4
+    };
+    var line = new google.maps.Polyline({
+        path: [{lat: lat, lng: lng}, {lat: targetlat, lng: targetlng}],
+        strokeOpacity: 0,
+        icons: [{
+            icon: lineSymbol,
+            offset: '0',
+            repeat: '20px'
+        }],
+        map: map
+    });
+    var id = setInterval(function () {
+        line.setMap(null);
+        lat = lat + 0.00001;
+        lng = lng + 0.00001;
+        targetlng = targetlng - 0.00001;
+        targetlat = targetlat - 0.00001;
+        map.setCenter(new google.maps.LatLng(lat, lng));
+        marker1.setPosition(new google.maps.LatLng(lat, lng));
+       // marker1.icon = judgeDirection(lng, lat, targetlng, targetlat);
+        marker2.setPosition(new google.maps.LatLng(targetlat, targetlng));
+        times++;
+        planeTrackPoints.push(new google.maps.LatLng(lat, lng));
+        targetTrackPoints.push(new google.maps.LatLng(targetlat, targetlng));
+        var planeTrackPath = new google.maps.Polyline({
+            path: planeTrackPoints,
+            strokeColor: "#00BFFF", // 线条颜色
+            strokeOpacity: 1.0, // 线条透明度
+            strokeWeight: 4 // 线条粗细
+        });
+        var targetTrackPath = new google.maps.Polyline({
+            path: targetTrackPoints,
+            strokeColor: "#FF0000", // 线条颜色
+            strokeOpacity: 1.0, // 线条透明度
+            strokeWeight: 2 // 线条粗细
+        });
+        planeTrackPath.setMap(map);
+        targetTrackPath.setMap(map);
+
+        line = new google.maps.Polyline({
+            path: [{lat: lat, lng: lng}, {lat: targetlat, lng: targetlng}],
+            strokeOpacity: 0,
+            icons: [{
+                icon: lineSymbol,
+                offset: '0',
+                repeat: '20px'
+            }],
+            map: map
+        });
+
+        if (times === 20) {
+            clearInterval(id)
+        }
+    }, 1000);
+
+    //判断直升机的样式
+    function judgeDirection(lng, lat, targetlng, targetlat) {
+        var sublng = targetlng - lng;
+        var sublat = targetlat - lat;
+        if (lat === targetlat){
+            if (lng<targetlng){
+                return "../img/map/Plane03.png";
+            }else if (lng > targetlng){
+                return "../img/map/Palne09.png"
+            }
+        }
+        if (lat < targetlat){
+            if (lng === targetlng){
+                return "../img/map/Plane00.png";
+            }else if (lng < targetlng){
+                if (sublat/sublng<=1){
+                    return "../img/map/Plane02.png";
+                }else{
+                    return "../img/map/Plane01.png";
+                }
+            }else if (lng > targetlng){
+                if (sublat/sublng>= -1){
+                    return "../img/map/Plane10.png";
+                }else{
+                    return "../img/map/Plane11.png";
+                }
+            }
+        }
+        if (lat > targetlat){
+            if (lng === targetlng){
+                return "../img/map/Plane06.png";
+            }else if (lng < targetlng){
+                if (sublat/sublng <= -1){
+                    return "../img/map/Plane04.png";
+                }else{
+                    return "../img/map/Plane05.png";
+                }
+            }else if (lng > targetlng){
+                if (sublat/sublng >= 1){
+                    return "../img/map/Plane08.png";
+                }else{
+                    return "../img/map/Plane07.png";
+                }
+            }
+
+        }
+
+    }
+
+</script>
+
+<script>
+
+</script>
